@@ -1,0 +1,17 @@
+{
+    "name": "ricci69/mmbak-viewer",
+    "description": "A simple PHP viewer for mmbak files",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ricci69\\MmbakViewer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ricci69",
+            "email": "ricci69@protonmail.com"
+        }
+    ],
+    "require": {}
+}

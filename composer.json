@@ -1,6 +1,9 @@
 {
     "name": "ricci69/mmbak-viewer",
+    "type": "library",
     "description": "A simple PHP viewer for mmbak files",
+    "version": "1.0",
+    "minimum-stability": "stable",    
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -13,5 +16,7 @@
             "email": "ricci69@protonmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=7.0"
+    }
 }

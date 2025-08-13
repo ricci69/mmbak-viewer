@@ -20,10 +20,3 @@ If you want an online viewer to navigate through the content of a mmbak file wit
 &nbsp;
 ## Contributions
 Feel free to contribute to this project adding more feature or fixing issues.
-
-&nbsp;
-&nbsp;
-## Support this / me
-If you liked this work, and you haven't wasted hours of work with this repository, you can think about supporting me with Ko-fi
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P5FY846)

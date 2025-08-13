@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"CategoriesTest::testGet":0.003,"CurrenciesTest::testGet":0,"DbDriverTest::testCanBeCreatedFromValidDatabase":0,"InoutcomeTest::testGetIn":0,"InoutcomeTest::testGetOut":0,"InoutcomeTest::testGetFull":0.001,"InoutcomeTest::testGetSumIn":0,"InoutcomeTest::testGetSumOut":0,"WalletTest::testGetBalance":0.001}}

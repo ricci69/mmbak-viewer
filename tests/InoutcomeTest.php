@@ -57,4 +57,50 @@ class InoutcomeTest extends TestCase
         $this->assertEquals(401.25, $result['sum']);
         $this->assertEquals('1', $result['currency']);
     }
+
+    public function testGetByCategory()
+    {
+        $start = '2023-01-01';
+        $end = '2023-02-28';
+        $result = $this->inoutcome->getByCategory('cat1', $start, $end);
+        $this->assertCount(2, $result); // Both salary transactions
+        foreach ($result as $row) {
+            $this->assertEquals('cat1', $row['ctgUid']);
+        }
+    }
+
+    public function testGetByCategoryEmpty()
+    {
+        $start = '2023-01-01';
+        $end = '2023-02-28';
+        $result = $this->inoutcome->getByCategory('nonexistent', $start, $end);
+        $this->assertCount(0, $result);
+    }
+
+    public function testGetByCurrency()
+    {
+        $start = '2023-01-01';
+        $end = '2023-02-28';
+        $result = $this->inoutcome->getByCurrency('1', $start, $end);
+        $this->assertCount(4, $result); // All transactions are currency 1
+        foreach ($result as $row) {
+            $this->assertEquals('1', $row['currencyUid']);
+        }
+    }
+
+    public function testGetByDateRange()
+    {
+        $start = '2023-01-01';
+        $end = '2023-01-31';
+        $result = $this->inoutcome->getByDateRange($start, $end);
+        $this->assertCount(2, $result); // Jan has 1 income + 1 expense
+    }
+
+    public function testGetByDateRangeFullYear()
+    {
+        $start = '2023-01-01';
+        $end = '2023-12-31';
+        $result = $this->inoutcome->getByDateRange($start, $end);
+        $this->assertCount(4, $result); // All 4 transactions
+    }
 }

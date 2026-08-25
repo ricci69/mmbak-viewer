@@ -8,15 +8,13 @@ class DbDriver
     public function __construct(string $file="db.mmbak")
     {
         try {
-            $this->db = new \SQLite3($file, SQLITE3_OPEN_READWRITE);
+            $this->db = new \SQLite3($file, SQLITE3_OPEN_READONLY);
             $this->db->enableExceptions(true);
         }
         catch (\Exception $e)
         {
-            die($e->getMessage());
+            throw $e;
         }
-        
-        return $this->db;
     }
     
     /**
@@ -30,7 +28,7 @@ class DbDriver
         $fetchAllArray = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             array_push($fetchAllArray, $row);
-        }     
+        }    
         
         return $fetchAllArray;
     }

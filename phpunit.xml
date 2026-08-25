@@ -8,4 +8,17 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <report>
+            <text output="php://stdout" showOnlySummary="true" />
+        </report>
+    </coverage>
 </phpunit>

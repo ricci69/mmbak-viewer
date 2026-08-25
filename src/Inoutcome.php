@@ -34,6 +34,67 @@ class Inoutcome
     }
     
     /**
+     * Returns the list of incomes/expenditures for a given period and category
+     * 
+     * @param string $ctgUid Category UID
+     * @param string $start Y-m-d of the beginning
+     * @param string $end Y-m-d of the end
+     * @return array
+     */
+    public function getByCategory(string $ctgUid, string $start, string $end) : array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM INOUTCOME WHERE ctgUid = :ctgUid AND wdate BETWEEN :start AND :end');
+        
+        $stmt->bindParam(":ctgUid", $ctgUid, SQLITE3_TEXT);
+        $stmt->bindParam(":start", $start, SQLITE3_TEXT);
+        $stmt->bindParam(":end", $end, SQLITE3_TEXT);
+        
+        $result = $stmt->execute();
+        
+        return $this->dbDriver->fetchAll($result);
+    }
+    
+    /**
+     * Returns the list of incomes/expenditures for a given period and currency
+     * 
+     * @param string $currencyUid Currency UID
+     * @param string $start Y-m-d of the beginning
+     * @param string $end Y-m-d of the end
+     * @return array
+     */
+    public function getByCurrency(string $currencyUid, string $start, string $end) : array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM INOUTCOME WHERE currencyUid = :currencyUid AND wdate BETWEEN :start AND :end');
+        
+        $stmt->bindParam(":currencyUid", $currencyUid, SQLITE3_TEXT);
+        $stmt->bindParam(":start", $start, SQLITE3_TEXT);
+        $stmt->bindParam(":end", $end, SQLITE3_TEXT);
+        
+        $result = $stmt->execute();
+        
+        return $this->dbDriver->fetchAll($result);
+    }
+    
+    /**
+     * Returns all transactions (incomes and expenditures) for a given period
+     * 
+     * @param string $start Y-m-d of the beginning
+     * @param string $end Y-m-d of the end
+     * @return array
+     */
+    public function getByDateRange(string $start, string $end) : array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM INOUTCOME WHERE wdate BETWEEN :start AND :end');
+        
+        $stmt->bindParam(":start", $start, SQLITE3_TEXT);
+        $stmt->bindParam(":end", $end, SQLITE3_TEXT);
+        
+        $result = $stmt->execute();
+        
+        return $this->dbDriver->fetchAll($result);
+    }
+    
+    /**
      * Returns the list of incomes for a given period
      * 
      * @param string $start Y-m-d of the beginning
@@ -51,11 +112,11 @@ class Inoutcome
      * @param string $start Y-m-d of the beginning
      * @param string $end Y-m-d of the end
      * @return array
-     */    
+     */   
     public function getOut(string $start, string $end) : array
     {
         return $this->get(1, $start, $end);
-    }    
+    }   
     
     /**
      * Returns the list of incomes and expenditures for a given period, with the 
@@ -70,7 +131,7 @@ class Inoutcome
         $stmt = $this->db->prepare('SELECT INOUTCOME.wdate, zcategory.NAME, INOUTCOME.DO_TYPE, INOUTCOME.AMOUNT_ACCOUNT, INOUTCOME.currencyUid, INOUTCOME.ZCONTENT FROM INOUTCOME,zcategory WHERE zcategory.uid=INOUTCOME.ctgUid AND INOUTCOME.wdate BETWEEN :start AND :end');
         
         $stmt->bindParam(":start", $start, SQLITE3_TEXT);
-        $stmt->bindParam(":end", $end, SQLITE3_TEXT);  
+        $stmt->bindParam(":end", $end, SQLITE3_TEXT); 
         
         $result = $stmt->execute();
         
@@ -96,7 +157,7 @@ class Inoutcome
         $result = $stmt->execute();
         $row = $result->fetchArray(SQLITE3_ASSOC);
         
-        return array("sum"=>$row["sum"], "currency"=>$row["currencyUid"]);        
+        return array("sum"=>$row["sum"], "currency"=>$row["currencyUid"]);       
     }
     
     /**
@@ -105,7 +166,7 @@ class Inoutcome
      * @param string $start Y-m-d of the beginning
      * @param string $end Y-m-d of the end
      * @return array "sum" with the total, "currency" with the currency ID
-     */    
+     */   
     public function getSumIn(string $start, string $end) : array
     {
         return $this->getSum(0, $start, $end);
@@ -117,9 +178,9 @@ class Inoutcome
      * @param string $start Y-m-d of the beginning
      * @param string $end Y-m-d of the end
      * @return array "sum" with the total, "currency" with the currency ID
-     */     
+     */    
     public function getSumOut(string $start, string $end) : array
     {
         return $this->getSum(1, $start, $end);
-    }       
+    }      
 }

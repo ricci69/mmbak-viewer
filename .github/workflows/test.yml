@@ -6,28 +6,15 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.1', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
-        include:
-          - php-version: '7.1'
-            phpunit-version: '^8.0'
-          - php-version: '7.4'
-            phpunit-version: '^9.0'
-          - php-version: '8.0'
-            phpunit-version: '^9.0'
-          - php-version: '8.1'
-            phpunit-version: '^9.0'
-          - php-version: '8.2'
-            phpunit-version: '^9.0'
-          - php-version: '8.3'
-            phpunit-version: '^9.0'
-          - php-version: '8.4'
-            phpunit-version: '^9.0'
-      fail-fast: false
+        php-version: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
 
     name: PHP ${{ matrix.php-version }}
 
@@ -43,9 +30,7 @@ jobs:
           coverage: xdebug
 
       - name: Install dependencies
-        run: |
-          composer require --dev phpunit/phpunit:${{ matrix.phpunit-version }} --no-progress --prefer-dist --no-interaction
-          composer install --no-progress --prefer-dist
+        run: composer install --no-progress --prefer-dist
 
       - name: Run tests with coverage
         run: php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-text

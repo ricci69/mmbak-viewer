@@ -2,7 +2,7 @@
     "name": "ricci69/mmbak-viewer",
     "type": "library",
     "description": "A simple PHP viewer for mmbak files",
-    "version": "1.0",
+    "version": "1.1",
     "minimum-stability": "stable",    
     "license": "MIT",
     "autoload": {
